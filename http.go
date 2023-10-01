@@ -1,4 +1,4 @@
-package mavengo
+package mvnc
 
 import (
 	"encoding/xml"
