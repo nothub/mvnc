@@ -9,7 +9,7 @@ func TestFetchMetadata(t *testing.T) {
 	groupId := "org.quiltmc"
 	artifactId := "quilt-installer"
 
-	m, err := FetchMetadata(baseUrl, groupId, artifactId)
+	m, err := GetMetadata(baseUrl, groupId, artifactId)
 	if err != nil {
 		t.Fatal(err.Error())
 	}

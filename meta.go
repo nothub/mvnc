@@ -1,7 +1,5 @@
 package mvnc
 
-import "strings"
-
 const metaFile = "maven-metadata.xml"
 
 // The Metadata model as defined by the Apache Maven project:
@@ -94,21 +92,4 @@ type Plugin struct {
 
 	// The plugin artifactId
 	ArtifactId string `xml:"artifactId"`
-}
-
-func FetchMetadata(baseUrl string, groupId string, artifactId string) (*Metadata, error) {
-	// baseUrl example: "https://maven.quiltmc.org/repository/release"
-	// groupId example: "org.quiltmc"
-	// artifactId example: "quilt-installer"
-
-	groupId = strings.ReplaceAll(groupId, ".", "/")
-	url := baseUrl + "/" + groupId + "/" + artifactId + "/" + metaFile
-
-	meta := &Metadata{}
-	err := GetXml(url, meta)
-	if err != nil {
-		return nil, err
-	}
-
-	return meta, nil
 }
