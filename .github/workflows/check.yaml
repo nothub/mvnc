@@ -1,16 +1,16 @@
 name: '🚔'
 on: [ push ]
 jobs:
-  tests:
+  check:
     if: startsWith(github.ref, 'refs/tags/v') == false
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4.1.1
-      - uses: actions/setup-go@v5.0.0
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
           check-latest: true
           cache: true
       - run: |
-          go vet
-          go test -v -parallel $(grep -c -E "^processor.*[0-9]+" "/proc/cpuinfo") $(go list -m)/...
+          go vet ./...
+          go test -v ./...
