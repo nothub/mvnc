@@ -6,6 +6,7 @@
 
 set -eu
 cd "$(dirname "$(realpath "$0")")/.."
+set -x
 
 rm -rf "dist"
 mkdir -p "dist"
