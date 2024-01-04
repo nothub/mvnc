@@ -5,7 +5,7 @@
 # shellcheck shell=sh
 
 set -eu
-cd "$(dirname "$(realpath "$0")")"
+cd "$(dirname "$(realpath "$0")")/.."
 
 rm -rf "dist"
 mkdir -p "dist"
@@ -15,6 +15,10 @@ go test -vet "" ./...
 build() {
 
     file="dist/mvnc_${1}_${2}"
+
+    if test "$1" = "windows"; then
+        file="${file}.exe"
+    fi
 
     GOOS="$1" GOARCH="$2" go build \
         -ldflags "-s -w" \
@@ -27,10 +31,6 @@ build() {
             --no-progress \
             --no-time \
             "${file}"
-    fi
-
-    if test "$1" = "windows"; then
-        mv "${file}" "${file}.exe"
     fi
 
 }
