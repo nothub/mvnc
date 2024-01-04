@@ -1,26 +1,57 @@
 package main
 
 import (
-	"github.com/urfave/cli/v2"
+	"fmt"
 	"log"
 	"os"
-	"strings"
 )
 
-func main() {
+func init() {
 	log.SetFlags(0)
+}
 
-	app := cli.NewApp()
+func main() {
 
-	app.Name = "mvnc"
-	app.Usage = "A client for Apache Maven HTTP repositories."
+	var cmd string
+	var args []string
+	if len(os.Args) > 1 {
+		cmd = os.Args[1]
+		args = os.Args[2:]
+	}
 
-	app.UseShortOptionHandling = true
-	app.Suggest = true
+	switch cmd {
+	case "list":
+		list(args[0])
+	case "download":
+		download(args[0])
+	case "upload":
+		upload(args[0])
+	case "remove":
+		remove(args[0])
+	case "help":
+		fmt.Print(usage)
+	default:
+		log.Print(usage)
+		os.Exit(1)
+	}
 
-	app.Flags = []cli.Flag{}
+}
 
-	app.Commands = []*cli.Command{
+func readGav(args []string) (gid string, aid string, ver string) {
+	if len(args) > 0 {
+		gid = args[0]
+	}
+	if len(args) > 1 {
+		aid = args[1]
+	}
+	if len(args) > 2 {
+		ver = args[2]
+	}
+	return gid, aid, ver
+}
+
+func list(arg string) {
+	/*
 		{
 			Name:      "list",
 			Aliases:   []string{"ls"},
@@ -36,6 +67,11 @@ func main() {
 				return nil
 			},
 		},
+	*/
+}
+
+func download(arg string) {
+	/*
 		{
 			Name:      "download",
 			Aliases:   []string{"dl"},
@@ -52,6 +88,11 @@ func main() {
 				return nil
 			},
 		},
+	*/
+}
+
+func upload(arg string) {
+	/*
 		{
 			Name:      "upload",
 			Aliases:   []string{"up"},
@@ -68,6 +109,11 @@ func main() {
 				return nil
 			},
 		},
+	*/
+}
+
+func remove(arg string) {
+	/*
 		{
 			Name:      "remove",
 			Aliases:   []string{"rm"},
@@ -84,22 +130,5 @@ func main() {
 				return nil
 			},
 		},
-	}
-
-	if err := app.Run(os.Args); err != nil {
-		log.Fatalln(err.Error())
-	}
-}
-
-func readGav(args []string) (gid string, aid string, ver string) {
-	if len(args) > 0 {
-		gid = args[0]
-	}
-	if len(args) > 1 {
-		aid = args[1]
-	}
-	if len(args) > 2 {
-		ver = args[2]
-	}
-	return gid, aid, ver
+	*/
 }
