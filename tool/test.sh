@@ -6,43 +6,48 @@
 
 set -eu
 cd "$(dirname "$(realpath "$0")")/.."
+set -x
 
-server() {
+url="https://maven.reposilite.com/releases/com/reposilite/reposilite/3.5.2/reposilite-3.5.2-all.jar"
+sha="2cb341fc35d1e53446db37072bc381e8c73d496da39c27a494c5fd7d20ecd505"
+file="reposilite.jar"
+token="testing:correcthorsebatterystaple"
 
-    url="https://maven.reposilite.com/releases/com/reposilite/reposilite/3.5.2/reposilite-3.5.2-all.jar"
-    sha="2cb341fc35d1e53446db37072bc381e8c73d496da39c27a494c5fd7d20ecd505"
-    file="reposilite.jar"
-    token="testing:correcthorsebatterystaple"
-
+# start reposilite server
+(
+    # workdir
     mkdir -p "reposilite"
     cd "reposilite"
 
+    # download server jar
     if test ! -f ${file}; then
         curl -fsSLo "${file}" "${url}"
         echo "${sha} ${file}" | sha256sum -c
     fi
 
-    screen -dmLS "reposilite" -- java -Xmx32M -jar "${file}" \
+    # run in background
+    screen -dmS "reposilite" -- java -Xmx32M -jar "${file}" \
         --hostname "127.0.0.1" \
         --port "8080" \
         --token "${token}"
 
-    screen -ls
-
     # wait for startup
-    curl \
+    if ! curl \
         --retry 10 \
         --retry-delay 1 \
         --retry-connrefused \
         --silent \
         --output /dev/null \
-        "http://127.0.0.1:8080/"
+        "http://127.0.0.1:8080/"; then
+        echo >&2 "reposilite server unreachable, killing screen..."
+        screen -S "reposilite" -X quit
+        exit 1
+    fi
     sleep 1
+)
 
-}
-
-(server)
-
+# run tests
 go test -vet "" ./...
 
-screen -S "reposilite" -p 0 -X stuff "stop^M"
+# stop reposilite server
+screen -S "reposilite" -X stuff "stop^M"
