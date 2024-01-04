@@ -13,8 +13,8 @@ sha="2cb341fc35d1e53446db37072bc381e8c73d496da39c27a494c5fd7d20ecd505"
 file="reposilite.jar"
 token="testing:correcthorsebatterystaple"
 
-# start reposilite server
-(
+start_reposilite() (
+
     # workdir
     mkdir -p "reposilite"
     cd "reposilite"
@@ -44,9 +44,12 @@ token="testing:correcthorsebatterystaple"
         exit 1
     fi
     sleep 1
+
 )
 
-# run tests
+start_reposilite
+
+# run vet and tests
 go test -vet "" ./...
 
 # stop reposilite server

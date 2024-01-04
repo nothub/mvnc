@@ -11,21 +11,21 @@ set -x
 rm -rf "dist"
 mkdir -p "dist"
 
-go test -vet "" ./...
-
-build() {
+build() (
 
     file="dist/mvnc_${1}_${2}"
-
     if test "$1" = "windows"; then
         file="${file}.exe"
     fi
 
+    # build static binary
     GOOS="$1" GOARCH="$2" go build \
         -ldflags "-s -w" \
         -o "${file}" \
         ./cmd
 
+    # compress with upx
+    # ( except for mac because upx mac support requires a feature flag )
     if test "$1" != "darwin"; then
         upx --best --lzma \
             --no-color \
@@ -34,10 +34,10 @@ build() {
             "${file}"
     fi
 
-}
+)
 
-build linux   amd64
-build linux   arm64
-build darwin  amd64
-build darwin  arm64
+build linux amd64
+build linux arm64
+build darwin amd64
+build darwin arm64
 build windows amd64
