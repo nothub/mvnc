@@ -17,7 +17,6 @@ func TestWithReposilite(t *testing.T) {
 			Cmd: []string{
 				"--port", "8080",
 				"--token", "test:foobar",
-				"--plugin-directory", "/plugins",
 			},
 			Env: map[string]string{
 				"JAVA_OPTS": "-Xmx64M",
