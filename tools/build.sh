@@ -7,6 +7,8 @@
 set -eu
 cd "$(dirname "$(realpath "$0")")/.."
 
+set -x
+
 build() (
 
     file="dist/mvnc_${1}_${2}"
@@ -31,8 +33,6 @@ build() (
     fi
 
 )
-
-set -x
 
 go clean
 rm    -rf "dist"
