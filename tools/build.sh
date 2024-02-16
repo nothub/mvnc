@@ -1,15 +1,11 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/b0d36bd0a420ecee3bc916c91886caca87c894e9.tar.gz
-#! nix-shell -p go_1_21 upx
+#! nix-shell -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/a4d4fe8c5002202493e87ec8dbc91335ff55552c.tar.gz
+#! nix-shell -p go_1_22 upx
 #! nix-shell -i sh --pure
 # shellcheck shell=sh
 
 set -eu
 cd "$(dirname "$(realpath "$0")")/.."
-set -x
-
-rm -rf "dist"
-mkdir -p "dist"
 
 build() (
 
@@ -35,6 +31,12 @@ build() (
     fi
 
 )
+
+set -x
+
+go clean
+rm    -rf "dist"
+mkdir -p  "dist"
 
 build linux amd64
 build linux arm64
