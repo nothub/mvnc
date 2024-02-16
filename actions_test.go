@@ -19,6 +19,9 @@ func TestWithReposilite(t *testing.T) {
 				"--token", "test:foobar",
 				"--plugin-directory", "/plugins",
 			},
+			Env: map[string]string{
+				"JAVA_OPTS": "-Xmx64M",
+			},
 			ExposedPorts: []string{"8080/tcp"},
 			WaitingFor:   wait.ForLog("For help, type 'help' or '?'"),
 		},
