@@ -39,6 +39,37 @@ func TestWithReposilite(t *testing.T) {
 		}
 	}()
 
-	// do stuff
+	_TestList(t)
+	_TestUpload(t)
+	_TestDownload(t)
+	_TestRemove(t)
 
+}
+
+func _TestList(t *testing.T) {
+	err := List("x", "y", "z")
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+}
+
+func _TestUpload(t *testing.T) {
+	err := Upload("x", "y", "z", "LICENSE.txt")
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+}
+
+func _TestDownload(t *testing.T) {
+	err := Download("x", "y", "z", "LICENSE.txt")
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+}
+
+func _TestRemove(t *testing.T) {
+	err := Remove("x", "y", "z", "LICENSE.txt")
+	if err != nil {
+		t.Fatal(err.Error())
+	}
 }
