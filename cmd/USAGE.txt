@@ -9,6 +9,7 @@ Options:
     -token    Auth token
     -user     Auth username
     -pass     Auth password
+    -verbose  More logs
     -help     Show help
 
 Commands:
