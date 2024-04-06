@@ -1,18 +1,30 @@
 package main
 
-import (
-	"embed"
-)
+const usage string = `mvnc - A client for Apache Maven HTTP repositories
 
-//go:embed USAGE.txt
-var fs embed.FS
+Usage:
+    mvnc -r=<url> -t=<token> <command>
+    mvnc -r=<url> -u=<user> -p=<pass> <command>
 
-var usage string
+Options:
+    -r, -repo       Repo base url
+    -t, -token      Auth token
+    -u, -user       Auth username
+    -p, -pass       Auth password
+    -v, -verbose    More logs
+    -h, -help       Show help
+    -V, -version    Show version
 
-func init() {
-	data, err := fs.ReadFile("USAGE.txt")
-	if err != nil {
-		logE.Fatalln(err)
-	}
-	usage = string(data)
-}
+Commands:
+    ls - Show artifact ids, versions or artifacts
+    Usage: mvnc ls <gid> [<aid>] [<ver>]
+
+    dl - Fetch artifact(s) from remote server
+    Usage: mvnc dl <gid> <aid> <ver> [<file>]
+
+    up - Upload artifact to remote server
+    Usage: mvnc up <gid> <aid> <ver> <file>
+
+    rm - Remove artifact from remote server
+    Usage: mvnc rm <gid> <aid> <ver> <file>
+`

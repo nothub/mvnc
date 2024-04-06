@@ -3,10 +3,10 @@ package main
 import (
 	"flag"
 	"github.com/nothub/mvnc"
-	"os"
 )
 
 func main() {
+
 	cmd, args := parseArgs()
 
 	var gid, aid, ver, file string
@@ -35,9 +35,7 @@ func main() {
 		err = mvnc.Remove(gid, aid, ver, file)
 	default:
 		flag.Usage()
-		os.Exit(1)
 	}
-
 	if err != nil {
 		logE.Fatalln(err)
 	}
