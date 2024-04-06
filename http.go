@@ -15,7 +15,7 @@ var HttpClient = http.DefaultClient
 var jarMT = "application/java-archive"
 var xmlMT = "application/xml"
 
-var ua = "mvnc/0.1 (+hub.lol/mvnc)"
+var ua = "mvnc/0.1 (+github.com/nothub/mvnc)"
 
 func GetXml(url string, v any) error {
 	req, err := http.NewRequest(http.MethodGet, url, nil)

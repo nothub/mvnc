@@ -1,4 +1,4 @@
-module hub.lol/mvnc
+module github.com/nothub/mvnc
 
 go 1.22
 

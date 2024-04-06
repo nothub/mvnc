@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"hub.lol/mvnc"
+	"github.com/nothub/mvnc"
 	"os"
 )
 
