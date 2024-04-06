@@ -3,13 +3,8 @@ package main
 import (
 	"flag"
 	"hub.lol/mvnc"
-	"log"
 	"os"
 )
-
-func init() {
-	log.SetFlags(0)
-}
 
 func main() {
 	cmd, args := parseArgs()
@@ -44,7 +39,7 @@ func main() {
 	}
 
 	if err != nil {
-		log.Fatalln(err)
+		logE.Fatalln(err)
 	}
 
 }

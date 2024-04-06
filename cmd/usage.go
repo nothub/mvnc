@@ -2,7 +2,6 @@ package main
 
 import (
 	"embed"
-	"log"
 )
 
 //go:embed USAGE.txt
@@ -13,7 +12,7 @@ var usage string
 func init() {
 	data, err := fs.ReadFile("USAGE.txt")
 	if err != nil {
-		log.Fatalln(err)
+		logE.Fatalln(err)
 	}
 	usage = string(data)
 }
