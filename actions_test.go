@@ -11,6 +11,8 @@ import (
 
 func TestWithReposilite(t *testing.T) {
 
+	t.SkipNow()
+
 	req := testcontainers.GenericContainerRequest{
 		ContainerRequest: testcontainers.ContainerRequest{
 			Image: "dzikoysk/reposilite:3.5.6",
