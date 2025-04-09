@@ -1,8 +1,6 @@
 module github.com/nothub/mvnc
 
-go 1.23.0
-
-toolchain go1.24.2
+go 1.24.2
 
 require github.com/testcontainers/testcontainers-go v0.36.0
 
